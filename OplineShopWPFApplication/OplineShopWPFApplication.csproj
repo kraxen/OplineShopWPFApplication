@@ -10,17 +10,47 @@
   <ItemGroup>
     <Content Include="Source\free-icon-shop-69986.png" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="4.0.5" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShopDB\OnlineShopDB.csproj" />
     <ProjectReference Include="..\OnlineShopInfrastructe\OnlineShopInfrastructe.csproj" />
-    <ProjectReference Include="..\OnlineShopVMLib\OnlineShopVMLib.csproj" />
+    <ProjectReference Include="..\OnlineShopModels\OnlineShopModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Windows\AddClientWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\AddProductWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Source\free-icon-shop-69986.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Windows\AddClientWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\AddProductWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

@@ -76,7 +76,7 @@
             Margin="10 0">
                 <TextBlock Text="Товары"/>
                 <DataGrid 
-                ItemsSource="{Binding SelectedClient.Products}" 
+                ItemsSource="{Binding Products}" 
                 AutoGenerateColumns="False"
                 MinHeight="350"
                 SelectedItem="{Binding SelectedProduct}">

@@ -1,5 +1,4 @@
-﻿using OnlineShopInfrastructe;
-using OnlineShopVMLib;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace OplineShopWPFApplication;
 
@@ -8,6 +7,6 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new OnlineShopViewModel(App.Db);
+        DataContext = App.AppHost.Services.GetService<OnlineShopViewModel>();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using OnlineShopInfrastructe;
+using OnlineShopModels;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Windows;
 
-namespace OnlineShopVMLib
+namespace OplineShopWPFApplication
 {
     public class AddClientViewModel : BaseViewModel
     {
@@ -14,7 +15,6 @@ namespace OnlineShopVMLib
         private string patronymic;
         private string email;
         private Regex ruPhoneMask = new(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
-        private Regex emailMask = new(@"[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}", RegexOptions.IgnoreCase);
         private IDbAdapter? dbAdapter;
 
         public string Name

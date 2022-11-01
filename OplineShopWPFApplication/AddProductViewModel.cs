@@ -1,7 +1,9 @@
 ﻿using OnlineShopInfrastructe;
+using OnlineShopModels;
 using System.Collections.ObjectModel;
+using System.Linq;
 
-namespace OnlineShopVMLib
+namespace OplineShopWPFApplication
 {
     public class AddProductViewModel : BaseViewModel
     {
@@ -41,8 +43,8 @@ namespace OnlineShopVMLib
                 Kod = Kod,
                 Client = client
             };
-            client.Products.Append(product);
             dbAdapter?.AddProduct(product);
+            client.Products.Append(product);
             Close();
         }
         private bool AddProductCanExcecute(object sender)

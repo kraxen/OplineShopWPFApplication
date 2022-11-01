@@ -1,4 +1,4 @@
-﻿using OnlineShopVMLib;
+﻿using OnlineShopModels;
 
 namespace OnlineShopInfrastructe
 {

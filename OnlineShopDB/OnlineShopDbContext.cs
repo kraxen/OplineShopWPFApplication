@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShopInfrastructe;
-using OnlineShopVMLib;
+using OnlineShopModels;
 
 namespace OnlineShopDB
 {

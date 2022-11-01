@@ -1,4 +1,4 @@
-﻿namespace OnlineShopVMLib;
+﻿namespace OnlineShopModels;
 public class Client
 {
     public Client()
