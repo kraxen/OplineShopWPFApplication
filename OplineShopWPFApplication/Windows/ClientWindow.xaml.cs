@@ -1,7 +1,7 @@
 ﻿namespace OplineShopWPFApplication.Windows;
-public partial class AddClientWindow
+public partial class ClientWindow
 {
-    public AddClientWindow()
+    public ClientWindow()
     {
         InitializeComponent();
     }

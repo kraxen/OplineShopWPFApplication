@@ -41,6 +41,7 @@ public class OnlineShopViewModel : BaseViewModel
         RemoveProduct = new(RemoveProductExecute, (s) => SelectedProduct is not null);
         Search = new(SearchExecute, (s) => !string.IsNullOrWhiteSpace(SearchText));
         ClearSearch = new(ClearSearchExecute, (s) => true);
+        UpdateClient = new(UpdateClientExecute, (s) => SelectedClient is not null);
     }
 
     public ObservableCollection<Client> Clients { get; set; }
@@ -84,14 +85,15 @@ public class OnlineShopViewModel : BaseViewModel
     public DelegateCommand RemoveProduct { get; set; }
     public DelegateCommand Search { get; set; }
     public DelegateCommand ClearSearch { get; set; }
+    public DelegateCommand UpdateClient { get; set; }
 
     private void OpenAddClientWindowExecute(object sender)
     {
-        App.AppHost.Services.GetService<AddClientWindow>()?.ShowDialog();
+        BaseWindowFactory<ClientWindow, AddClientViewModel>.Get()?.ShowDialog();
     }
     private void OpenAddProductWindowExecute(object sender)
     {
-        App.AppHost.Services.GetService<AddProductWindow>()?.ShowDialog();
+        BaseWindowFactory<AddProductWindow, AddProductViewModel>.Get()?.ShowDialog();
         Products = new(SelectedClient.Products);
     }
 
@@ -142,5 +144,10 @@ public class OnlineShopViewModel : BaseViewModel
         });
 
         Clients = new(searchClients!);
+    }
+    private void UpdateClientExecute(object sender)
+    {
+        BaseWindowFactory<ClientWindow, UpdateClientViewModel>.Get()?.ShowDialog();
+        SelectedClient = Clients.FirstOrDefault();
     }
 }

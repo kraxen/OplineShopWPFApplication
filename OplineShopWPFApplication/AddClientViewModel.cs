@@ -2,62 +2,16 @@
 using OnlineShopModels;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
-using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace OplineShopWPFApplication
 {
-    public class AddClientViewModel : BaseViewModel
+    public class AddClientViewModel : ClientViewModel
     {
         private ObservableCollection<Client> clients;
-        private string name;
-        private string suname;
-        private string patronymic;
-        private string email;
-        private Regex ruPhoneMask = new(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
-        private IDbAdapter? dbAdapter;
-
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                AddClient?.OnCanExecuteChanged();
-            }
-        }
-        public string Suname
-        {
-            get => suname;
-            set
-            {
-                suname = value;
-                AddClient?.OnCanExecuteChanged();
-            }
-        }
-        public string Patronymic
-        {
-            get => patronymic;
-            set
-            {
-                patronymic = value;
-                AddClient?.OnCanExecuteChanged();
-            }
-        }
-        public string Phone { get; set; }
-        public string Email 
-        { 
-            get => email;
-            set
-            {
-                email = value;
-                AddClient?.OnCanExecuteChanged();
-            }
-        }
-        public DelegateCommand AddClient { get; set; }
         public AddClientViewModel(ObservableCollection<Client> clients)
         {
-            AddClient = new(AddClientExecute, AddClientCanExecute);
+            SaveClient = new(AddClientExecute, AddClientCanExecute);
             this.clients = clients;
         }
 
@@ -79,7 +33,7 @@ namespace OplineShopWPFApplication
             }
             catch
             {
-                MessageBox.Show($"Введите номер в формате my@email.ru", $"Некорректный email {Email}", MessageBoxButton.OK, MessageBoxImage.Error); 
+                MessageBox.Show($"Введите номер в формате my@email.ru", $"Некорректный email {Email}", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             var client = new Client()

@@ -69,37 +69,51 @@ namespace OnlineShopDB
 
         void IDbAdapter.AddClient(Client client)
         {
+            SaveChanges();
             DbClients.Add(client);
             SaveChanges();
         }
 
         void IDbAdapter.RemoveClient(Client client)
         {
+            SaveChanges();
             DbClients.Remove(client);
             SaveChanges();
         }
 
         void IDbAdapter.UpdateClient(Client client)
         {
-            DbClients.Update(client);
+            SaveChanges();
+            var c = DbClients.FirstOrDefault(c => c.Email == client.Email);
+            if (c is null) return;
+            c.Name = client.Name;
+            c.Suname = client.Suname;
+            c.Patronymic = client.Patronymic;
+            c.Phone = client.Phone;
             SaveChanges();
         }
 
         void IDbAdapter.AddProduct(Product product)
         {
+            SaveChanges();
             DbProducts.Add(product);
             SaveChanges();
         }
 
         void IDbAdapter.RemoveProduct(Product product)
         {
+            SaveChanges();
             DbProducts.Remove(product);
             SaveChanges();
         }
 
         void IDbAdapter.UpdateProduct(Product product)
         {
-            DbProducts.Update(product);
+            SaveChanges();
+            var p = DbProducts.FirstOrDefault(p => p.Id == product.Id);
+            if (p is null) return;
+            p.Name = product.Name;
+            p.Kod = product.Kod;
             SaveChanges();
         }
     }

@@ -68,6 +68,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Добавить клиента" Command="{Binding OpenAddClientWindow}"/>
                     <Button Content="Удалить клиента" Command="{Binding RemoveClient}"/>
+                    <Button Content="Изменить" Command="{Binding UpdateClient}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel 

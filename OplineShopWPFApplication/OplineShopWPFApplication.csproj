@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Windows\AddClientWindow.xaml.cs">
+    <Compile Update="Windows\ClientWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\AddProductWindow.xaml.cs">
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Windows\AddClientWindow.xaml">
+    <Page Update="Windows\ClientWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

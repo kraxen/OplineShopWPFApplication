@@ -25,6 +25,6 @@ public class DelegateCommand : ICommand
     }
     public void OnCanExecuteChanged()
     {
-        CanExecuteChanged.Invoke(null, null);
+        CanExecuteChanged?.Invoke(null, null);
     }
 }
