@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Source\free-icon-shop-69986.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineShopDB\OnlineShopDB.csproj" />
+    <ProjectReference Include="..\OnlineShopInfrastructe\OnlineShopInfrastructe.csproj" />
+    <ProjectReference Include="..\OnlineShopVMLib\OnlineShopVMLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Source\free-icon-shop-69986.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
