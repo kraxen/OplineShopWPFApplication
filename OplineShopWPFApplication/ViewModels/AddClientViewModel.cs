@@ -3,7 +3,6 @@ using OnlineShopModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
-using System.Windows;
 
 namespace OplineShopWPFApplication
 {

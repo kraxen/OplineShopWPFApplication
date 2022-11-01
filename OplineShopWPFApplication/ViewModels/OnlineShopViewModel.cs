@@ -1,13 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OnlineShopInfrastructe;
+﻿using OnlineShopInfrastructe;
 using OnlineShopModels;
 using OplineShopWPFApplication.Windows;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace OplineShopWPFApplication;
 

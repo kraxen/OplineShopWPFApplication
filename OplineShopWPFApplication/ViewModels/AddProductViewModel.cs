@@ -2,7 +2,6 @@
 using OnlineShopModels;
 using System;
 using System.Linq;
-using System.Windows;
 
 namespace OplineShopWPFApplication
 {
