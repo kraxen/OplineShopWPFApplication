@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OplineShopWPFApplication;
 
@@ -25,7 +26,15 @@ public class OnlineShopViewModel : BaseViewModel
     public OnlineShopViewModel(IDbAdapter dbAdapter)
     {
         this.dbAdapter = dbAdapter;
-        Clients = new ObservableCollection<Client>(dbAdapter.Clients);
+        try
+        {
+            Clients = new ObservableCollection<Client>(dbAdapter.Clients);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
         Init();
     }
 

@@ -1,5 +1,6 @@
 ﻿using OnlineShopInfrastructe;
 using OnlineShopModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -59,8 +60,15 @@ namespace OplineShopWPFApplication
             client.Products = c?.Products ?? new List<Product>();
             clients.Remove(c);
             clients.Add(client);
-
-            dbAdapter?.UpdateClient(client);
+            try
+            {
+                dbAdapter?.UpdateClient(client);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             Close();
         }
         private bool UpdateClientCanExecute(object sender)

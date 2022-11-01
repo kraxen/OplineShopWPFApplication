@@ -1,5 +1,6 @@
 ﻿using OnlineShopInfrastructe;
 using OnlineShopModels;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
 using System.Windows;
@@ -46,7 +47,16 @@ namespace OplineShopWPFApplication
                 Products = new ObservableCollection<Product>()
             };
             clients.Add(client);
-            dbAdapter?.AddClient(client);
+            try
+            {
+                dbAdapter?.AddClient(client);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
             Close();
         }
         private bool AddClientCanExecute(object sender)

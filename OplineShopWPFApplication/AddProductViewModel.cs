@@ -1,7 +1,8 @@
 ﻿using OnlineShopInfrastructe;
 using OnlineShopModels;
-using System.Collections.ObjectModel;
+using System;
 using System.Linq;
+using System.Windows;
 
 namespace OplineShopWPFApplication
 {
@@ -43,7 +44,15 @@ namespace OplineShopWPFApplication
                 Kod = Kod,
                 Client = client
             };
-            dbAdapter?.AddProduct(product);
+            try
+            {
+                dbAdapter?.AddProduct(product);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             client.Products.Append(product);
             Close();
         }
