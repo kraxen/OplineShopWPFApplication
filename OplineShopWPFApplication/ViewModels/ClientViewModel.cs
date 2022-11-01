@@ -11,7 +11,10 @@ namespace OplineShopWPFApplication
         private string email;
         protected Regex ruPhoneMask = new(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
         protected IDbAdapter? dbAdapter;
+        public ClientViewModel(IExceptionHandler handler) : base(handler)
+        {
 
+        }
         public string Name
         {
             get => name;

@@ -15,7 +15,8 @@ namespace OplineShopWPFApplication
         private Client client;
         private readonly ObservableCollection<Client> clients;
 
-        public UpdateClientViewModel(Client client, ObservableCollection<Client> clients)
+        public UpdateClientViewModel(Client client, ObservableCollection<Client> clients, IExceptionHandler handler)
+            : base(handler)
         {
             SaveClient = new(UpdateClientExecute, UpdateClientCanExecute);
             this.client = client;
@@ -27,7 +28,8 @@ namespace OplineShopWPFApplication
             Email = client.Email;
         }
 
-        public UpdateClientViewModel(Client client, IDbAdapter? dbAdapter, ObservableCollection<Client> clients) : this(client, clients)
+        public UpdateClientViewModel(Client client, IDbAdapter? dbAdapter, ObservableCollection<Client> clients, IExceptionHandler handler) 
+            : this(client, clients, handler)
         {
             this.dbAdapter = dbAdapter;
         }
@@ -36,7 +38,7 @@ namespace OplineShopWPFApplication
         {
             if (!string.IsNullOrWhiteSpace(Phone) && !ruPhoneMask.IsMatch(Phone))
             {
-                MessageBox.Show($"Введите номер в формате +79998887733", $"Некорректный номер телефона {Phone}", MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException($"Введите номер в формате +79998887733", $"Некорректный номер телефона {Phone}");
                 return;
             }
             try
@@ -45,7 +47,7 @@ namespace OplineShopWPFApplication
             }
             catch
             {
-                MessageBox.Show($"Введите номер в формате my@email.ru", $"Некорректный email {Email}", MessageBoxButton.OK, MessageBoxImage.Error); 
+                ExceptionHandler.ShowException($"Введите номер в формате my@email.ru", $"Некорректный email {Email}");
                 return;
             }
             client = new Client()
@@ -66,7 +68,7 @@ namespace OplineShopWPFApplication
             }
             catch(Exception e)
             {
-                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException(e);
                 return;
             }
             Close();

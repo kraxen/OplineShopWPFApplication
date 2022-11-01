@@ -10,13 +10,14 @@ namespace OplineShopWPFApplication
     public class AddClientViewModel : ClientViewModel
     {
         private ObservableCollection<Client> clients;
-        public AddClientViewModel(ObservableCollection<Client> clients)
+        public AddClientViewModel(ObservableCollection<Client> clients, IExceptionHandler handler)
+            : base(handler)
         {
             SaveClient = new(AddClientExecute, AddClientCanExecute);
             this.clients = clients;
         }
 
-        public AddClientViewModel(ObservableCollection<Client> clients, IDbAdapter? dbAdapter) : this(clients)
+        public AddClientViewModel(ObservableCollection<Client> clients, IDbAdapter? dbAdapter, IExceptionHandler handler) : this(clients, handler)
         {
             this.dbAdapter = dbAdapter;
         }
@@ -25,7 +26,7 @@ namespace OplineShopWPFApplication
         {
             if (!string.IsNullOrWhiteSpace(Phone) && !ruPhoneMask.IsMatch(Phone))
             {
-                MessageBox.Show($"Введите номер в формате +79998887733", $"Некорректный номер телефона {Phone}", MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException($"Введите номер в формате +79998887733", $"Некорректный номер телефона {Phone}");
                 return;
             }
             try
@@ -34,7 +35,7 @@ namespace OplineShopWPFApplication
             }
             catch
             {
-                MessageBox.Show($"Введите номер в формате my@email.ru", $"Некорректный email {Email}", MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException($"Введите номер в формате my@email.ru", $"Некорректный email {Email}");
                 return;
             }
             var client = new Client()
@@ -53,7 +54,7 @@ namespace OplineShopWPFApplication
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException(e);
                 return;
             }
             

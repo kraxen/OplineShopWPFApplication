@@ -24,13 +24,14 @@ namespace OplineShopWPFApplication
         }
         public DelegateCommand AddProduct { get; set; }
 
-        public AddProductViewModel(Client client)
+        public AddProductViewModel(Client client, IExceptionHandler handler)
+            : base(handler)
         {
             this.client = client;
             AddProduct = new(AddProductExcecute, AddProductCanExcecute);
         }
 
-        public AddProductViewModel(Client client, IDbAdapter dbAdapter) : this(client)
+        public AddProductViewModel(Client client, IDbAdapter dbAdapter, IExceptionHandler handler) : this(client, handler)
         {
             this.dbAdapter = dbAdapter;
         }
@@ -50,7 +51,7 @@ namespace OplineShopWPFApplication
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                ExceptionHandler.ShowException(e);
                 return;
             }
             client.Products.Append(product);

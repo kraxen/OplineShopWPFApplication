@@ -18,12 +18,9 @@ public class OnlineShopViewModel : BaseViewModel
     private IDbAdapter dbAdapter;
     private string searchText;
 
-    public OnlineShopViewModel()
-    {
-        Init();
-    }
 
-    public OnlineShopViewModel(IDbAdapter dbAdapter)
+    public OnlineShopViewModel(IDbAdapter dbAdapter, IExceptionHandler handler)
+        :base(handler)
     {
         this.dbAdapter = dbAdapter;
         try
@@ -32,14 +29,9 @@ public class OnlineShopViewModel : BaseViewModel
         }
         catch (Exception e)
         {
-            MessageBox.Show(e.ToString(), e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+            ExceptionHandler.ShowException(e);
             return;
         }
-        Init();
-    }
-
-    private void Init()
-    {
         SelectedClient = Clients?.FirstOrDefault();
         if (SelectedClient is null) Products = new();
         else Products = new(SelectedClient.Products);
