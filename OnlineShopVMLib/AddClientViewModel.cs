@@ -89,7 +89,7 @@ namespace OnlineShopVMLib
                 Patronymic = Patronymic,
                 Phone = Phone,
                 Email = Email,
-                Products = new()
+                Products = new ObservableCollection<Product>()
             };
             clients.Add(client);
             dbAdapter?.AddClient(client);

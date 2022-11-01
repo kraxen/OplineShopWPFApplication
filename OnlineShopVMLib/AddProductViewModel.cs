@@ -41,7 +41,7 @@ namespace OnlineShopVMLib
                 Kod = Kod,
                 Client = client
             };
-            client.Products.Add(product);
+            client.Products.Append(product);
             dbAdapter?.AddProduct(product);
             Close();
         }

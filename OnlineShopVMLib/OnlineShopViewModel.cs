@@ -22,6 +22,7 @@ public class OnlineShopViewModel : BaseViewModel
     {
         this.dbAdapter = dbAdapter;
         Clients = new ObservableCollection<Client>(dbAdapter.Clients);
+        Products = new ObservableCollection<Product>(SelectedClient?.Products ?? new List<Product>());
         Init();
     }
 
@@ -37,13 +38,15 @@ public class OnlineShopViewModel : BaseViewModel
         ClearSearch = new(ClearSearchExecute, (s) => true);
     }
 
-    public ObservableCollection<Client> Clients { get; set; } = new();
+    public ObservableCollection<Client> Clients { get; set; }
+    public ObservableCollection<Product> Products { get; set; }
     public Client? SelectedClient
     {
         get => selectedClient;
         set
         {
             selectedClient = value!;
+            Products = new(value.Products);
             RemoveClient?.OnCanExecuteChanged();
             OpenAddProductWindow?.OnCanExecuteChanged();
             RemoveProduct?.OnCanExecuteChanged();
@@ -115,7 +118,7 @@ public class OnlineShopViewModel : BaseViewModel
     private void RemoveProductExecute(object sender)
     {
         dbAdapter?.RemoveProduct(SelectedProduct!);
-        SelectedClient!.Products.Remove(SelectedProduct!);
+        Products.Remove(SelectedProduct!);
         SelectedProduct = SelectedClient!.Products!.FirstOrDefault();
     }
     private void ClearSearchExecute(object sender)
