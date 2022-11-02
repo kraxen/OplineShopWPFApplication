@@ -22,7 +22,7 @@ public class OnlineShopViewModel : BaseViewModel
         this.dbAdapter = dbAdapter;
         try
         {
-            Clients = new ObservableCollection<Client>(dbAdapter.Clients);
+            Clients = new ObservableCollection<Client>(dbAdapter.GetClients());
         }
         catch (Exception e)
         {
@@ -97,13 +97,13 @@ public class OnlineShopViewModel : BaseViewModel
 
     private void RemoveClientExecute(object sender)
     {
-        dbAdapter.RemoveClient(SelectedClient!);
+        dbAdapter.RemoveClient(SelectedClient.Email!);
         Clients.Remove(SelectedClient!);
         SelectedClient = Clients.FirstOrDefault();
     }
     private void RemoveProductExecute(object sender)
     {
-        dbAdapter?.RemoveProduct(SelectedProduct);
+        dbAdapter?.RemoveProduct(SelectedProduct!.Id);
         var products = SelectedClient!.Products.ToList();
         products.Remove(SelectedProduct!);
         SelectedClient.Products = products;
@@ -112,7 +112,7 @@ public class OnlineShopViewModel : BaseViewModel
     }
     private void ClearSearchExecute(object sender)
     {
-        Clients = new(dbAdapter?.Clients!);
+        Clients = new(dbAdapter?.GetClients()!);
         SearchText = "";
     }
     private async void SearchExecute(object sender)
@@ -120,25 +120,15 @@ public class OnlineShopViewModel : BaseViewModel
         
         var searchClients = await Task.Run(() =>
         {
-            // Из БД (Для задания)
-            return dbAdapter?.Where(new Func<Client, bool>(
-                c => 
+            //Из кэша(Лучше)
+            return Clients.Where(
+                c =>
                 c.Email.Contains(SearchText) ||
                 c.Name.Contains(SearchText) ||
                 c.Suname.Contains(SearchText) ||
                 c.Patronymic.Contains(SearchText) ||
                 c.Phone?.Contains(SearchText) is true
-                ));
-
-            // Из кэша (Лучше)
-            //return Clients.Where(new Func<Client, bool>(
-            //    c =>
-            //    c.Email.Contains(SearchText) ||
-            //    c.Name.Contains(SearchText) ||
-            //    c.Suname.Contains(SearchText) ||
-            //    c.Patronymic.Contains(SearchText) ||
-            //    c.Phone?.Contains(SearchText) is true
-            //    ));
+                );
         });
 
         Clients = new(searchClients!);

@@ -1,9 +1,6 @@
 ﻿namespace OnlineShopModels;
 public class Client
 {
-    public Client()
-    {
-    }
     public string Name { get; set; }
     public string Suname { get; set; }
     public string Patronymic { get; set; }

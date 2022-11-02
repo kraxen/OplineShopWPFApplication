@@ -8,8 +8,8 @@ namespace OnlineShopDB
     {
         public DbSet<Client> DbClients { get; set; }
         public DbSet<Product> DbProducts { get; set; }
-        IEnumerable<Client> IDbAdapter.Clients { get => DbClients.Include(c=>c.Products); set => throw new NotImplementedException(); }
-        IEnumerable<Product> IDbAdapter.Products { get => DbProducts; set => throw new NotImplementedException(); }
+        IEnumerable<Client> IDbAdapter.GetClients() => DbClients.Include(c=>c.Products);
+        IEnumerable<Product> IDbAdapter.GetProducts() => DbProducts; 
 
         public OnlineShopDbContext()
         {
@@ -43,30 +43,6 @@ namespace OnlineShopDB
             SaveChanges();
         }
 
-        IEnumerable<Client> IDbAdapter.Where(Func<Client, bool> func)
-        {
-            try
-            {
-                return DbClients.Where(func);
-            }
-            catch
-            {
-                return new List<Client>();
-            }
-        }
-
-        IEnumerable<Product> IDbAdapter.Where(Func<Product, bool> func)
-        {
-            try
-            {
-                return DbProducts.Where(func);
-            }
-            catch
-            {
-                return new List<Product>();
-            }
-        }
-
         void IDbAdapter.AddClient(Client client)
         {
             SaveChanges();
@@ -74,9 +50,11 @@ namespace OnlineShopDB
             SaveChanges();
         }
 
-        void IDbAdapter.RemoveClient(Client client)
+        void IDbAdapter.RemoveClient(string email)
         {
             SaveChanges();
+            var client = DbClients.FirstOrDefault(c => c.Email == email);
+            if (client is null) return;
             DbClients.Remove(client);
             SaveChanges();
         }
@@ -100,9 +78,11 @@ namespace OnlineShopDB
             SaveChanges();
         }
 
-        void IDbAdapter.RemoveProduct(Product product)
+        void IDbAdapter.RemoveProduct(int productId)
         {
             SaveChanges();
+            var product = DbProducts.FirstOrDefault(p => p.Id == productId);
+            if (product is null) return;
             DbProducts.Remove(product);
             SaveChanges();
         }
