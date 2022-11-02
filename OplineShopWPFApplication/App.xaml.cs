@@ -20,6 +20,12 @@ public partial class App
                 services.AddScoped<IDbAdapter, OnlineShopDbContext>();
                 services.AddSingleton<IExceptionHandler, MessageBoxExceptionHandler>();
                 services.AddSingleton<OnlineShopViewModel>();
+                services.AddSingleton(s =>
+                {
+                    var w = new MainWindow();
+                    w.DataContext = s.GetService<OnlineShopViewModel>();
+                    return w;
+                });
 
                 services.AddTransient((serviceProvider) => 
                     new AddClientViewModel(serviceProvider.GetService<OnlineShopViewModel>()!.Clients,
@@ -36,6 +42,7 @@ public partial class App
                 services.AddTransient((serviceProvider) => BaseWindowFactory<ClientWindow, UpdateClientViewModel>.Get());
             })
             .Build();
+        AppHost.Services.GetService<MainWindow>()!.Show();
         base.OnStartup(e);
     }
     protected async override void OnExit(ExitEventArgs e)
